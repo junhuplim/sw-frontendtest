@@ -19,7 +19,7 @@ import team from '../images/companies.png';
 const useStyles = makeStyles(theme => ({
   container: {
     backgroundColor: 'white',
-    maxHeight: '75px'
+    maxHeight: '80px'
   },
   lowerContainer: {
     backgroundColor: 'white',
