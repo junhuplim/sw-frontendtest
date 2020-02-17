@@ -13,6 +13,10 @@ import ClampLines from 'react-clamp-lines';
 import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles({
+  cardContainer: {
+    paddingRight: '10px',
+    paddingLeft: '10px'
+  },
   root: {
     height: '180px',
     marginBottom: '10px'
@@ -28,8 +32,8 @@ const useStyles = makeStyles({
     textAlign: 'center',
     lineHeight: '1.5',
     height: '60px',
-    paddingLeft: '10px',
-    paddingRight: '10px'
+    paddingLeft: '5px',
+    paddingRight: '5px'
   },
   created: {
     fontSize: '13px',
@@ -51,7 +55,7 @@ const TeamCard = props => {
   const classes = useStyles();
 
   return (
-    <Grid sm={4}>
+    <Grid sm={4} className={classes.cardContainer}>
       <Card className={classes.root} variant='outlined'>
         <Grid container className={classes.container}>
           <Grid item sm={2}>
