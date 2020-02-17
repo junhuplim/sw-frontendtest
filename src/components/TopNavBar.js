@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   },
   company: {
     textAlign: 'center',
-    fontFamily: 'futura',
+    fontFamily: 'ProximaNova',
     fontStyle: 'Semibold',
     fontSize: '18px',
     opacity: '50%',
@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: '80px'
   },
   header: {
-    fontFamily: 'futura',
+    fontFamily: 'ProximaNova',
     fontStyle: 'Regular',
     fontSize: '24px',
     paddingTop: '20px'
@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
     paddingTop: '20px'
   },
   title: {
-    fontFamily: 'futura',
+    fontFamily: 'ProximaNova',
     fontStyle: 'Bold',
     fontSize: '28px',
     paddingLeft: '10px'
