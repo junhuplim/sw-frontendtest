@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { Component } from 'react';
 import TeamCard from './TeamCard';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
+  // container: {
+  //   backgroundColor: '#E5E5E5'
+  // },
   paper: {
-    padding: theme.spacing(3, 2),
-    marginLeft: theme.spacing(6),
-    marginTop: theme.spacing(6)
+    padding: theme.spacing(3, 2)
+    // marginTop: theme.spacing(6)
   },
   row: {
     paddingTop: '30px',
@@ -23,35 +25,51 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: '10px',
     paddingLeft: '15px'
   }
-}));
+});
 
-const TeamMain = ({ cardsState }) => {
-  const classes = useStyles();
-  const cardsList = cardsState.map(card => {
+class TeamMain extends React.Component {
+  render() {
+    const { children, classes, value, index, handleFavChange } = this.props;
+
+    const cardsList = children.map(card => {
+      return (
+        <TeamCard
+          id={card.id}
+          name={card.name}
+          image={card.image}
+          description={card.description}
+          created={card.created_at}
+          campaignsCount={card.campaigns_count}
+          leadsCount={card.leads_count}
+          isFavorited={card.is_favorited}
+          handleFavChange={handleFavChange}
+        />
+      );
+    });
     return (
-      <TeamCard
-        id={card.id}
-        name={card.name}
-        image={card.image}
-        description={card.description}
-        created={card.created_at}
-        campaignsCount={card.campaigns_count}
-        leadsCount={card.leads_count}
-        isFavorited={card.is_favorited}
-      />
+      <div className={classes.container} hidden={value !== index}>
+        <Paper className={classes.paper}>
+          <Grid>
+            <Typography className={classes.title}>
+              {value === 0 ? (
+                <div> All Teams </div>
+              ) : value === 1 ? (
+                <div> Favourites </div>
+              ) : (
+                <div> Archived </div>
+              )}
+            </Typography>
+          </Grid>
+          <Divider variant='middle' />
+          {value === index && (
+            <Grid container sm={12} className={classes.row}>
+              {cardsList}
+            </Grid>
+          )}
+        </Paper>
+      </div>
     );
-  });
-  return (
-    <Paper className={classes.paper}>
-      <Grid>
-        <Typography className={classes.title}> All Teams </Typography>
-      </Grid>
-      <Divider variant='middle' />
-      <Grid container sm={12} className={classes.row}>
-        {cardsList}
-      </Grid>
-    </Paper>
-  );
-};
+  }
+}
 
-export default TeamMain;
+export default withStyles(styles)(TeamMain);
