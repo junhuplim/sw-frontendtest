@@ -14,14 +14,14 @@ import { data } from '../data';
 
 const styles = theme => ({
   mainContainer: {
-    backgroundColor: '#E5E5E5',
-    flexGrow: 1
+    backgroundColor: '#E5E5E5'
+    // flex: '1'
   },
   bigContainer: {
-    flex: '1'
+    flex: 1
   },
   bodyContainer: {
-    flex: '1'
+    // flex: '1'
   }
 });
 
@@ -33,6 +33,26 @@ const theme = createMuiTheme({
 });
 
 class IndexPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchName: '',
+      activitiesList: data.activities
+    };
+  }
+
+  handleChange = event => {
+    this.setState({
+      searchName: event.target.value
+    });
+  };
+
+  handleActivityChange = newActivity => {
+    this.setState({
+      activitiesList: [newActivity, ...this.state.activitiesList]
+    });
+  };
+
   render() {
     const { classes } = this.props;
 
@@ -40,17 +60,18 @@ class IndexPage extends React.Component {
       <ThemeProvider theme={theme}>
         <div className={classes.mainContainer}>
           <Grid container>
-            <Grid>
-              <SideNavBar />
-            </Grid>
+            <SideNavBar />
             <Grid sm={12} className={classes.bigContainer}>
-              <TopNavBar />
+              <TopNavBar handleChange={this.handleChange} />
               <Grid container className={classes.bodyContainer}>
                 <Grid sm={8}>
-                  <SimpleTabs />
+                  <SimpleTabs
+                    searchName={this.state.searchName}
+                    handleActivityChange={this.handleActivityChange}
+                  />
                 </Grid>
                 <Grid sm={4}>
-                  <ActivityCard activitiesList={data.activities} />
+                  <ActivityCard activitiesList={this.state.activitiesList} />
                 </Grid>
               </Grid>
             </Grid>

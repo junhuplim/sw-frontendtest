@@ -45,71 +45,83 @@ class SimpleTabs extends React.Component {
     });
   };
 
+  handleArchivedChange = teamID => {
+    const updated = this.state.teamsState;
+    const old = updated[teamID - 1].is_archived;
+    updated[teamID - 1].is_archived = !old;
+    this.setState({
+      teamsState: updated
+    });
+
+    this.props.handleActivityChange({
+      id: data.activities.length + 1,
+      person: {
+        id: data.activities.length + 1,
+        name: 'Julie',
+        avatar:
+          'https://d1bb37ap2qun5z.cloudfront.net/profiles/profile_avatars/000/000/003/display/tamako200x200b.png?1393742139'
+      },
+      action: 'increased_quota',
+      target: 'Indeed - US',
+      created_at: '2 hours ago'
+    });
+  };
+
+  handleChange = value => {
+    this.setState({ activeTabIndex: value });
+  };
+
   render() {
-    const { classes } = this.props;
+    const { classes, searchName } = this.props;
     const { activeTabIndex, teamsState } = this.state;
 
-    const favState = teamsState.filter(eachTeam => {
+    const filteredState = teamsState.filter(eachTeam => {
+      return eachTeam.name.includes(searchName);
+    });
+
+    const favState = filteredState.filter(eachTeam => {
       return eachTeam.is_favorited;
     });
 
-    const archivedState = teamsState.filter(eachTeam => {
+    const archivedState = filteredState.filter(eachTeam => {
       return eachTeam.is_archived;
     });
 
-    const handleChange = (event, value) => {
-      this.setState({ activeTabIndex: value });
-    };
-
     return (
       <div className={classes.root}>
-        <Tabs
-          value={activeTabIndex}
-          onChange={handleChange}
-          indicatorColor={'primary'}
-        >
+        <Tabs value={activeTabIndex} indicatorColor={'primary'}>
           <Tab
             label='All'
             {...a11yProps(0)}
             className={classes.tabText}
-            onClick={() =>
-              this.setState({
-                activeTabIndex: 0
-              })
-            }
+            onClick={() => this.handleChange(0)}
           />
           <Tab
             label='Favourites'
             {...a11yProps(1)}
             className={classes.tabText}
-            onClick={() =>
-              this.setState({
-                activeTabIndex: 1
-              })
-            }
+            onClick={() => this.handleChange(1)}
           />
           <Tab
             label='Archived'
             {...a11yProps(2)}
             className={classes.tabText}
-            onClick={() =>
-              this.setState({
-                activeTabIndex: 2
-              })
-            }
+            onClick={() => this.handleChange(2)}
           />
         </Tabs>
         <TeamMain
           value={activeTabIndex}
           index={0}
           handleFavChange={this.handleFavChange}
+          handleArchivedChange={this.handleArchivedChange}
         >
-          {teamsState}
+          {filteredState}
         </TeamMain>
         <TeamMain
           value={activeTabIndex}
           index={1}
           handleFavChange={this.handleFavChange}
+          handleArchivedChange={this.handleArchivedChange}
         >
           {favState}
         </TeamMain>
@@ -117,6 +129,7 @@ class SimpleTabs extends React.Component {
           value={activeTabIndex}
           index={2}
           handleFavChange={this.handleFavChange}
+          handleArchivedChange={this.handleArchivedChange}
         >
           {archivedState}
         </TeamMain>

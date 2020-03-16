@@ -12,8 +12,8 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#042235'
   },
   logo: {
-    height: '80%',
-    width: '80%'
+    // height: '80%',
+    // width: '80%'
   },
   logoBox: {
     justifyContent: 'center',

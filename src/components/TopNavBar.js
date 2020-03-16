@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   createMuiTheme,
   makeStyles,
   ThemeProvider
 } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
@@ -16,7 +17,7 @@ import menu from '../images/menu.png';
 import john from '../images/john.png';
 import team from '../images/companies.png';
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   container: {
     backgroundColor: 'white',
     maxHeight: '80px'
@@ -78,70 +79,73 @@ const useStyles = makeStyles(theme => ({
   textfield: {
     paddingBottom: '10px'
   }
-}));
+});
 
-const TopNavBar = () => {
-  const classes = useStyles();
+class TopNavBar extends React.Component {
+  render() {
+    const { classes, handleChange } = this.props;
 
-  return (
-    <React.Fragment>
-      <Grid container className={classes.container}>
-        <Grid sm={1} className={classes.company}>
-          NARWHAL
-        </Grid>
-        <Divider orientation='vertical' flexItem />
-        <Grid container sm={10} className={classes.menu}>
-          <Grid sm={9}>
-            <Typography className={classes.header}>Teams</Typography>
+    return (
+      <React.Fragment>
+        <Grid container className={classes.container}>
+          <Grid sm={1} className={classes.company}>
+            NARWHAL
           </Grid>
-          <Grid container sm={3} className={classes.profile}>
-            <Grid item sm={3}>
-              <img src={menu} height='30' width='30' alt='menu' />
+          <Divider orientation='vertical' flexItem />
+          <Grid container sm={10} className={classes.menu}>
+            <Grid sm={9}>
+              <Typography className={classes.header}>Teams</Typography>
             </Grid>
-            <Grid item sm={6}>
-              <Typography className={classes.profileText}>
-                Hello, John
-              </Typography>
-            </Grid>
-            <Grid item sm={3}>
-              <img src={john} height='36' width='36' alt='profile' />
+            <Grid container sm={3} className={classes.profile}>
+              <Grid item sm={3}>
+                <img src={menu} height='30' width='30' alt='menu' />
+              </Grid>
+              <Grid item sm={6}>
+                <Typography className={classes.profileText}>
+                  Hello, John
+                </Typography>
+              </Grid>
+              <Grid item sm={3}>
+                <img src={john} height='36' width='36' alt='profile' />
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
-      <Divider variant='middle' />
-      <Grid container className={classes.lowerContainer}>
-        <Grid container sm={9}>
-          <img src={team} height='35' width='35' alt='team' />
-          <Typography className={classes.title}>Teams</Typography>
+        <Divider variant='middle' />
+        <Grid container className={classes.lowerContainer}>
+          <Grid container sm={9}>
+            <img src={team} height='35' width='35' alt='team' />
+            <Typography className={classes.title}>Teams</Typography>
+          </Grid>
+          <Grid sm={3}>
+            <Button
+              variant='contained'
+              color='primary'
+              className={classes.button}
+              startIcon={<AddIcon />}
+            >
+              Create New Team
+            </Button>
+          </Grid>
         </Grid>
-        <Grid sm={3}>
-          <Button
-            variant='contained'
-            color='primary'
-            className={classes.button}
-            startIcon={<AddIcon />}
-          >
-            Create New Team
-          </Button>
+        <Grid container className={classes.box}>
+          <Grid container sm={11} className={classes.textfieldBox}>
+            <SearchIcon />
+            <TextField
+              id='search'
+              label='Search Team name..'
+              size='small'
+              className={classes.textfield}
+              InputProps={{
+                disableUnderline: true
+              }}
+              onChange={handleChange}
+            />
+          </Grid>
         </Grid>
-      </Grid>
-      <Grid container className={classes.box}>
-        <Grid container sm={11} className={classes.textfieldBox}>
-          <SearchIcon />
-          <TextField
-            id='search'
-            label='Search Team name..'
-            size='small'
-            className={classes.textfield}
-            InputProps={{
-              disableUnderline: true
-            }}
-          />
-        </Grid>
-      </Grid>
-    </React.Fragment>
-  );
-};
+      </React.Fragment>
+    );
+  }
+}
 
-export default TopNavBar;
+export default withStyles(styles)(TopNavBar);

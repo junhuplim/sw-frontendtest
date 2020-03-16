@@ -34,13 +34,11 @@ const ActivityCard = ({ activitiesList }) => {
       />
     );
   });
-  return (
-    <Paper className={classes.paper}>
-      <Typography className={classes.title}> Activity</Typography>
-      <Divider variant='middle' />
-      {activities}
-    </Paper>
-  );
+  <Paper className={classes.paper}>
+    <Typography className={classes.title}> Activity</Typography>
+    <Divider variant='middle' />
+    {activities}
+  </Paper>;
 };
 
 export default ActivityCard;

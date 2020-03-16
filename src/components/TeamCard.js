@@ -16,6 +16,7 @@ const styles = theme => ({
   cardContainer: {
     paddingRight: '10px',
     paddingLeft: '10px'
+    // flex: 1
   },
   root: {
     height: '180px',
@@ -63,11 +64,17 @@ class TeamCard extends React.Component {
       campaignsCount,
       leadsCount,
       handleFavChange,
+      handleArchivedChange,
+      isArchived,
       isFavorited
     } = this.props;
 
     const handleOnClick = () => {
       handleFavChange(id);
+    };
+
+    const handleArchivedClick = () => {
+      handleArchivedChange(id);
     };
 
     return (
@@ -86,6 +93,9 @@ class TeamCard extends React.Component {
             <Grid item xs={2}>
               <IconButton onClick={() => handleOnClick()}>
                 {isFavorited ? <StarIcon color='secondary' /> : <StarIcon />}
+              </IconButton>
+              <IconButton onClick={() => handleArchivedClick()}>
+                {isArchived ? <StarIcon color='secondary' /> : <StarIcon />}
               </IconButton>
             </Grid>
           </Grid>

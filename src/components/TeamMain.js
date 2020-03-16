@@ -29,7 +29,14 @@ const styles = theme => ({
 
 class TeamMain extends React.Component {
   render() {
-    const { children, classes, value, index, handleFavChange } = this.props;
+    const {
+      children,
+      classes,
+      value,
+      index,
+      handleFavChange,
+      handleArchivedChange
+    } = this.props;
 
     const cardsList = children.map(card => {
       return (
@@ -42,6 +49,8 @@ class TeamMain extends React.Component {
           campaignsCount={card.campaigns_count}
           leadsCount={card.leads_count}
           isFavorited={card.is_favorited}
+          isArchived={card.is_archived}
+          handleArchivedChange={handleArchivedChange}
           handleFavChange={handleFavChange}
         />
       );
@@ -61,11 +70,11 @@ class TeamMain extends React.Component {
             </Typography>
           </Grid>
           <Divider variant='middle' />
-          {value === index && (
-            <Grid container sm={12} className={classes.row}>
-              {cardsList}
-            </Grid>
-          )}
+          {/* {value === index && ( */}
+          <Grid container sm={12} className={classes.row}>
+            {cardsList}
+          </Grid>
+          {/* )} */}
         </Paper>
       </div>
     );
